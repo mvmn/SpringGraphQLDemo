@@ -1,0 +1,25 @@
+type User {
+    id: ID!
+    firstName: String
+    lastName: String
+    dateOfBirth: String
+    role: Role!
+    username: String!
+}
+
+enum Role {
+    ADMIN
+    OPERATOR
+    USER
+}
+
+type Query {
+    users: [User!]! @auth(requires: [USER, OPERATOR, ADMIN])
+}
+
+type Mutation {
+    createUser(username: String!, password: String!, firstName: String, lastName: String, dateOfBirth: String, role: Role!): User @auth(requires: ADMIN)
+    updateUser(id: ID!, firstName: String, lastName: String, dateOfBirth: String): User @auth(requires: [OPERATOR, ADMIN])
+}
+
+directive @auth(requires: [Role!]!) on FIELD_DEFINITION
