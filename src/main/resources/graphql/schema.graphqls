@@ -7,6 +7,7 @@ type User {
     dateOfBirth: Date
     role: Role!
     username: String!
+    groups: [Group!]!
 }
 
 enum Role {
@@ -15,13 +16,22 @@ enum Role {
     USER
 }
 
+type Group {
+    id: ID!
+    name: String!
+    users: [User!]!
+}
+
 type Query {
     users: [User!]! @auth(requires: [USER, OPERATOR, ADMIN])
+    groups: [Group!]! @auth(requires: [USER, OPERATOR, ADMIN])
 }
 
 type Mutation {
     createUser(username: String!, password: String!, firstName: String, lastName: String, dateOfBirth: Date, role: Role!): User @auth(requires: ADMIN)
     updateUser(id: ID!, firstName: String, lastName: String, dateOfBirth: Date): User @auth(requires: [OPERATOR, ADMIN])
+    createGroup(name: String!): Group @auth(requires: ADMIN)
+    assignUserToGroup(user: String!, group: String!): User @auth(requires: [ADMIN, OPERATOR])
 }
 
 directive @auth(requires: [Role!]!) on FIELD_DEFINITION
