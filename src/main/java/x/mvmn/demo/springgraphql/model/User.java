@@ -2,6 +2,7 @@ package x.mvmn.demo.springgraphql.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,13 +27,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
+    @Column(unique = true)
+    private String username;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    
-    private String username;
-    private String password;
+
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
 }

@@ -1,8 +1,10 @@
+scalar Date
+
 type User {
     id: ID!
     firstName: String
     lastName: String
-    dateOfBirth: String
+    dateOfBirth: Date
     role: Role!
     username: String!
 }
@@ -18,8 +20,8 @@ type Query {
 }
 
 type Mutation {
-    createUser(username: String!, password: String!, firstName: String, lastName: String, dateOfBirth: String, role: Role!): User @auth(requires: ADMIN)
-    updateUser(id: ID!, firstName: String, lastName: String, dateOfBirth: String): User @auth(requires: [OPERATOR, ADMIN])
+    createUser(username: String!, password: String!, firstName: String, lastName: String, dateOfBirth: Date, role: Role!): User @auth(requires: ADMIN)
+    updateUser(id: ID!, firstName: String, lastName: String, dateOfBirth: Date): User @auth(requires: [OPERATOR, ADMIN])
 }
 
 directive @auth(requires: [Role!]!) on FIELD_DEFINITION
