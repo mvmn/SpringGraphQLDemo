@@ -23,8 +23,8 @@ type Group {
 }
 
 type Query {
-    users: [User!]! @auth(requires: [USER, OPERATOR, ADMIN])
-    groups: [Group!]! @auth(requires: [USER, OPERATOR, ADMIN])
+    users(first: Int, last: Int, after: String, before: String): UserConnection! @auth(requires: [USER, OPERATOR, ADMIN])
+    groups(first: Int, last: Int, after: String, before: String): GroupConnection! @auth(requires: [USER, OPERATOR, ADMIN])
 }
 
 type Mutation {

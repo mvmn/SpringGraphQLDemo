@@ -19,5 +19,4 @@ public class GraphQlConfig {
                 .scalar(ExtendedScalars.Date)
                 .scalar(ExtendedScalars.DateTime);
     }
-
 }
