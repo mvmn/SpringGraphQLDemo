@@ -25,6 +25,7 @@ type Group {
 type Query {
     users(first: Int, last: Int, after: String, before: String): UserConnection! @auth(requires: [USER, OPERATOR, ADMIN])
     groups(first: Int, last: Int, after: String, before: String): GroupConnection! @auth(requires: [USER, OPERATOR, ADMIN])
+    greet(arg: String): [String]!
 }
 
 type Mutation {

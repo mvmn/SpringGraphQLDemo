@@ -28,8 +28,7 @@ public class AuthDirective implements SchemaDirectiveWiring {
         if (directive != null) {
             List<String> requiredRoles = directive.getArgument("requires").getValue();
 
-            DataFetcher<?> originalDataFetcher = environment.getCodeRegistry()
-                    .getDataFetcher((GraphQLObjectType) environment.getFieldsContainer(), field);
+            DataFetcher<?> originalDataFetcher = environment.getFieldDataFetcher();
 
             DataFetcher<?> authDataFetcher = (DataFetchingEnvironment dataFetchingEnvironment) -> {
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,8 +49,7 @@ public class AuthDirective implements SchemaDirectiveWiring {
                 return originalDataFetcher.get(dataFetchingEnvironment);
             };
 
-            environment.getCodeRegistry()
-                    .dataFetcher((GraphQLObjectType) environment.getFieldsContainer(), field, authDataFetcher);
+            environment.setFieldDataFetcher(authDataFetcher);
         }
         return field;
     }
