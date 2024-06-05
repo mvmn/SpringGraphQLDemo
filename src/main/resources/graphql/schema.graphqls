@@ -7,7 +7,7 @@ type User {
     dateOfBirth: Date
     role: Role!
     username: String!
-    groups: [Group!]!
+    groups: [Group]
 }
 
 enum Role {
@@ -19,7 +19,7 @@ enum Role {
 type Group {
     id: ID!
     name: String!
-    users: [User!]!
+    users: [User]
 }
 
 type Query {
